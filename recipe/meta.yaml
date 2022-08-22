@@ -1,7 +1,7 @@
 {% set name = "hiredis" %}
 {% set version = "2.0.0" %}
 {% set checksum = "81d6d8e39695f2c37954d1011c0480ef7cf444d4e3ae24bc5e89ee5de360139a" %}
-{% build = "0" %}
+{% set build = "0" %}
 
 package:
   name: {{ name|lower }}
