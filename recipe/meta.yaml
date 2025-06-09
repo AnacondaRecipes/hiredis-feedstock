@@ -1,20 +1,18 @@
 {% set name = "hiredis" %}
-{% set version = "2.0.0" %}
-{% set checksum = "81d6d8e39695f2c37954d1011c0480ef7cf444d4e3ae24bc5e89ee5de360139a" %}
-{% set build = "0" %}
+{% set version = "3.2.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name|lower }}/{{ name|lower }}-{{ version }}.tar.gz
-  sha256: {{ checksum }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 5a5f64479bf04dd829fe7029fad0ea043eac4023abc6e946668cbbec3493a78d
 
 build:
-  number: {{ build }}
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
-  skip: True  # [py<36]
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
+  skip: True  # [py<38]
 
 requirements:
   build:
@@ -28,21 +26,29 @@ requirements:
     - python
 
 test:
-  requires:
-    - pip
-  commands:
-    - pip check
+  source_files:
+    - tests
   imports:
     - hiredis
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/redis/hiredis-py
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Python wrapper for hiredis
+  description: |
+    Python extension that wraps protocol parsing code in hiredis. 
+    It primarily speeds up parsing of multi bulk replies.
   dev_url: https://github.com/redis/hiredis-py
   doc_url: https://github.com/redis/hiredis-py
-  license: BSD-3-Clause
-  license_family: BSD
-  license_file: COPYING
-  summary: Python wrapper for hiredis
 
 extra:
   recipe-maintainers:
