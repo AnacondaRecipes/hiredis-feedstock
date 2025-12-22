@@ -1,18 +1,18 @@
 {% set name = "hiredis" %}
-{% set version = "3.2.1" %}
+{% set version = "3.3.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5a5f64479bf04dd829fe7029fad0ea043eac4023abc6e946668cbbec3493a78d
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 105596aad9249634361815c574351f1bd50455dc23b537c2940066c4a9dea685
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
-  skip: True  # [py<38]
+  skip: true  # [py<38]
 
 requirements:
   build:
@@ -45,7 +45,7 @@ about:
   license_file: LICENSE
   summary: Python wrapper for hiredis
   description: |
-    Python extension that wraps protocol parsing code in hiredis. 
+    Python extension that wraps protocol parsing code in hiredis.
     It primarily speeds up parsing of multi bulk replies.
   dev_url: https://github.com/redis/hiredis-py
   doc_url: https://github.com/redis/hiredis-py
