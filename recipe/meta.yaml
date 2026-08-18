@@ -1,13 +1,13 @@
 {% set name = "hiredis" %}
-{% set version = "3.3.0" %}
+{% set version = "3.4.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 105596aad9249634361815c574351f1bd50455dc23b537c2940066c4a9dea685
+  sha256: 2bbb55435506e481d270df8d0b29dd94acb85d11d71df4b8efce23849a4d0bb7
 
 build:
   number: 0
@@ -37,7 +37,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests
+    - pytest -vv tests
 
 about:
   home: https://github.com/redis/hiredis-py
